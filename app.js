@@ -29,7 +29,6 @@ mongoose.connect(process.env.MONGOLAB_URI, function (error) {
 })
 
 
-
 var users = require('./routes/users')
 var transactions = require('./routes/transactions')
 
