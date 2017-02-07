@@ -34,11 +34,17 @@ var transactions = require('./routes/transactions')
 
 var app = express()
 
+app.get('/transactions', function(req, res, next) {
+  console.log('Getting the transcations')
+  Transactions.find( (err, transactions) => res.json(200, transactions))
+})
+
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
 
 app.use('/api/v1/users', users)
-app.use('/api/v1/transactions', transactions)
+// app.use('/api/v1/transactions', transactions)
+
 
 module.exports = app
