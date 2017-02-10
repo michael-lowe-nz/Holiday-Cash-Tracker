@@ -5,12 +5,9 @@ var bodyParser = require('body-parser')
 var dotenv = require('dotenv').config()
 var mongoose = require('mongoose')
 
-var Schema = new mongoose.Schema({
-  id: String,
-  title: String
-})
+var Schema = new mongoose.Schema()
 
-var Schema = new mongoose.Schema({
+var TransactionSchema = new mongoose.Schema({
   id: Number,
   trip : String,
   location: String,
@@ -22,27 +19,30 @@ var Schema = new mongoose.Schema({
   userId: Object
 })
 
-var Transactions = mongoose.model('Transactions', Schema)
 
-mongoose.connect(process.env.MONGOLAB_URI, function (error) {
-    if (error) console.error(error)
-    else console.log('mongo connected')
-})
+mongoose.connect(process.env.MONGOLAB_URI)
+var db = mongoose.connection
+var Transaction = mongoose.model('TransactionSchema', Schema)
+
 
 var users = require('./routes/users')
 
 var app = express()
 
 app.post('/api/v1/transactions', (req, res) => {
-  console.log('This is the post body: ', req)
-  var transaction = new Transactions(req.body)
-  transaction.id = transaction._id
-  transaction.save((err) => res.json(200, transaction))
+  console.log("retrieving Transaction var");
+  var transaction = new Transaction()
+  transaction.amount = 12.2
+  transaction.save(function (err) {
+    res.send('Transaction created')
+  })
 })
 
 app.get('/api/v1/transactions', function (req, res) {
   console.log('Getting the transactions')
-  Transactions.find( (err, transactions) => res.json(200, transactions))
+  Transaction.find( function (err, transactions){
+    res.json(200, transactions)
+  })
 })
 
 app.use(bodyParser.json())
