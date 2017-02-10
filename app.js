@@ -29,21 +29,20 @@ mongoose.connect(process.env.MONGOLAB_URI, function (error) {
     else console.log('mongo connected')
 })
 
-
 var users = require('./routes/users')
-var transactions = require('./routes/transactions')
 
 var app = express()
 
-app.get('api/v1/transactions', function(req, res, next) {
-  console.log('Getting the transcations')
-  Transactions.find( (err, transactions) => res.json(200, transactions))
-})
-
-app.post('api/v1/transactions', (req, res) => {
-  var transaction = new Transaction(req.body)
+app.post('/api/v1/transactions', (req, res) => {
+  console.log('This is the post body: ', req)
+  var transaction = new Transactions(req.body)
   transaction.id = transaction._id
   transaction.save((err) => res.json(200, transaction))
+})
+
+app.get('/api/v1/transactions', function (req, res) {
+  console.log('Getting the transactions')
+  Transactions.find( (err, transactions) => res.json(200, transactions))
 })
 
 app.use(bodyParser.json())
@@ -51,7 +50,6 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
 
 app.use('/api/v1/users', users)
-// app.use('/api/v1/transactions', transactions)
 
 
 module.exports = app
