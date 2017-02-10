@@ -18,6 +18,7 @@ var Schema = new mongoose.Schema({
   description: String,
   category: String,
   amount: Number,
+  currency: String,
   userId: Object
 })
 
@@ -34,9 +35,15 @@ var transactions = require('./routes/transactions')
 
 var app = express()
 
-app.get('/transactions', function(req, res, next) {
+app.get('api/v1/transactions', function(req, res, next) {
   console.log('Getting the transcations')
   Transactions.find( (err, transactions) => res.json(200, transactions))
+})
+
+app.post('api/v1/transactions', (req, res) => {
+  var transaction = new Transaction(req.body)
+  transaction.id = transaction._id
+  transaction.save((err) => res.json(200, transaction))
 })
 
 app.use(bodyParser.json())
