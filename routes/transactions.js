@@ -9,7 +9,8 @@ var TransactionSchema = new Schema({
   id: ObjectId,
   amount: Number,
   description: String,
-  category: String
+  categories: [String],
+  location: String
 })
 
 var postSchema = mongoose.model('TransactionSchema', TransactionSchema)
@@ -19,7 +20,7 @@ var postSchema = mongoose.model('TransactionSchema', TransactionSchema)
 router.get('/', function(req, res, next) {
   postSchema.find(function (err, transactions) {
     if (err) return res.send("Error:", err)
-    res.json(transactions)
+    res.json({transactions: transactions})
   })
 })
 
