@@ -17,8 +17,9 @@ var postSchema = mongoose.model('TransactionSchema', TransactionSchema)
 
 /* GET transactions listing. */
 router.get('/', function(req, res, next) {
-  res.json({
-    transactions: [1,5,6]
+  postSchema.find(function (err, transactions) {
+    if (err) return res.send("Error:", err)
+    res.json(transactions)
   })
 })
 
