@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "start": "nodemon ./bin/www",
+    "test": "node test/*.js | tap-diff"
   },
   "dependencies": {
     "body-parser": "~1.16.0",
@@ -17,6 +18,9 @@
   "devDependencies": {
     "dotenv": "^4.0.0",
     "mongoose": "^4.8.4",
-    "nodemon": "^1.11.0"
+    "nodemon": "^1.11.0",
+    "supertest": "^3.0.0",
+    "tap-diff": "^0.1.1",
+    "tape": "^4.6.3"
   }
 }

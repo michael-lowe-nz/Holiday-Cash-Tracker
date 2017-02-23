@@ -1,7 +1,7 @@
 var express = require('express')
 var router = express.Router()
 
-var Transaction = require('../schema/Transactions')
+var Transaction = require('../schema/Transaction')
 
 /* GET transactions listing. */
 router.get('/', function(req, res, next) {
@@ -11,11 +11,15 @@ router.get('/', function(req, res, next) {
   })
 })
 
+router.get('/:id', function(req, res, next) {
+  Transaction.find()
+})
+
 router.post('/', function(req, res) {
   new Transaction({
     amount: req.body.amount,
     description: req.body.description,
-    categories: req.body.categories,
+    category: req.body.category,
     location: req.body.location
   })
   .save(function (err) {
