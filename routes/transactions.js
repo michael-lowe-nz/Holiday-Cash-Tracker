@@ -1,38 +1,31 @@
 var express = require('express')
 var router = express.Router()
-var mongoose = require('mongoose')
 
-var Schema = mongoose.Schema
-var ObjectId = Schema.ObjectId
-
-var TransactionSchema = new Schema({
-  id: ObjectId,
-  amount: Number,
-  description: String,
-  categories: [String],
-  location: String
-})
-
-var postSchema = mongoose.model('TransactionSchema', TransactionSchema)
-
+var Transaction = require('../schema/Transactions')
 
 /* GET transactions listing. */
 router.get('/', function(req, res, next) {
-  postSchema.find(function (err, transactions) {
+  Transaction.find(function (err, transactions) {
     if (err) return res.send("Error:", err)
     res.json({transactions: transactions})
   })
 })
 
 router.post('/', function(req, res) {
-  new postSchema({
+  new Transaction({
     amount: req.body.amount,
     description: req.body.description,
-    category: req.body.category
+    categories: req.body.categories,
+    location: req.body.location
   })
-  .save()
-  console.log("Req.body: ", req.body)
-  res.send("Transaction Added")
+  .save(function (err) {
+    if (err) {
+      res.send('Error posting to mongoDB')
+    }
+    else {
+      res.send('Transaction Added')
+    }
+  })
 })
 
 module.exports = router
