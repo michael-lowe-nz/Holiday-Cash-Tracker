@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www",
-    "test": "node test/*.js | tap-diff"
+    "test": "node test/*.js"
   },
   "dependencies": {
     "body-parser": "~1.16.0",
@@ -15,9 +15,13 @@
     "serve-favicon": "~2.3.2"
   },
   "devDependencies": {
+    "chai": "^3.5.0",
     "dotenv": "^4.0.0",
+    "mocha": "^3.2.0",
     "mongoose": "^4.8.4",
     "nodemon": "^1.11.0",
+    "sinon": "^1.17.7",
+    "sinon-mongoose": "^1.3.0",
     "supertest": "^3.0.0",
     "tap-diff": "^0.1.1",
     "tape": "^4.6.3"
