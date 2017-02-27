@@ -6,6 +6,7 @@ var ObjectId = Schema.ObjectId
 var TransactionSchema = new Schema({
   id: ObjectId,
   amount: Number,
+  date: Date,
   description: String,
   categories: [String],
   location: String

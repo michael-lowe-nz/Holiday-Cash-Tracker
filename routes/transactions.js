@@ -18,6 +18,7 @@ router.get('/:id', function(req, res, next) {
 router.post('/', function(req, res) {
   new Transaction({
     amount: req.body.amount,
+    date: new Date(req.body.year, req.body.month, req.body.day),
     description: req.body.description,
     category: req.body.category,
     location: req.body.location
