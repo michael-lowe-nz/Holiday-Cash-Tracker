@@ -7,13 +7,10 @@ var Transaction = require('../schema/Transaction')
 router.get('/', function(req, res, next) {
   Transaction.find(function (err, transactions) {
     if (err) return res.send("Error:", err)
-    res.json({transactions: transactions})
+    res.status(200).json({transactions: transactions})
   })
 })
 
-router.get('/:id', function(req, res, next) {
-  Transaction.find()
-})
 
 router.post('/', function(req, res) {
   new Transaction({
@@ -28,7 +25,7 @@ router.post('/', function(req, res) {
       res.send('Error posting to mongoDB')
     }
     else {
-      res.send('Transaction Added')
+      res.status(201).json({response: 'Transaction Added'})
     }
   })
 })
