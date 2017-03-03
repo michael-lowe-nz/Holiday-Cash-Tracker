@@ -12,6 +12,7 @@ var transactions = require('./routes/transactions')
 require('dotenv').config()
 
 var app = express()
+mongoose.Promise = global.Promise
 
 // Connect to mongoDB
 mongoose.connect(process.env.MONGOLAB_URI, function (error) {
